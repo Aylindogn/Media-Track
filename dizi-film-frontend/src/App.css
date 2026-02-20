@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+
+:root {
+  --bg-green: #0b5b15;         /* Ana arka plan (Koyu Yeşil) */
+  --header-pink: #d81b60;      /* Başlıklar ve Vurgular (Neon Pembe) */
+  --card-dark: #121212;        /* Kartlar için siyah */
+  --text-white: #ffffff;
+  --neon-green: #00ff88;       /* Butonlar için parlak yeşil */
+}
+
+body {
+  background-color: var(--bg-green);
+  color: white;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+  background-color: var(--header-pink);
+  padding: 1rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.search-input {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid white;
+  background-color: white;
+  width: 250px;
+  outline: none;
+}
+
+/* --- ANA SAYFA LAYOUT --- */
+.container {
+  padding: 40px 5%;
+}
+
+.section-container {
+  margin-bottom: 60px;
+}
+
+.section-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  border-left: 8px solid var(--header-pink);
+  padding-left: 15px;
+}
+
+/* --- SAĞA KAYDIRMA (SCROLL) --- */
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: var(--header-pink);
+  border-radius: 10px;
+}
+
+/* --- KART TASARIMI --- */
+.movie-card {
+  background-color: var(--card-dark);
+  border-radius: 15px;
+  padding: 10px;
+  transition: all 0.3s ease;
+  min-width: 180px;
+  max-width: 180px;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.movie-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--header-pink);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.movie-info h3 {
+  color: white;
+  font-size: 0.9rem;
+  margin: 10px 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rating {
+  color: var(--neon-green);
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+/* --- AUTH (GİRİŞ/KAYIT) SAYFALARI --- */
+.auth-container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-form {
+  background: var(--card-dark);
+  padding: 40px;
+  border-radius: 25px;
+  border: 4px solid var(--header-pink);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.auth-form h2 {
+  color: var(--header-pink);
+  margin-bottom: 25px;
+  font-weight: 900;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 2px solid var(--bg-green) !important;
+  background: #1a1a1a !important;
+  color: white !important;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* Otomatik doldurma (Autofill) Düzeltmesi */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #1a1a1a inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* --- BUTONLAR --- */
+.yorum-btn {
+  background: var(--neon-green);
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.yorum-btn:hover {
+  background: white;
+  transform: scale(1.05);
+}
+
+.back-btn {
+  background: var(--header-pink);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* --- DETAY SAYFASI --- */
+.detay-sayfasi {
+  padding: 40px 5%;
+}
+
+.detay-header {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.detay-header img {
+  width: 300px;
+  border-radius: 20px;
+  border: 4px solid var(--header-pink);
+}
+
+.detay-baslik {
+  color: white;
+  font-size: 3.5rem;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.bolum-kart {
+  background: var(--card-dark);
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 8px solid var(--header-pink);
+}
+.review-horizontal-card {
+  display: flex;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(216, 27, 96, 0.3);
+  transition: 0.3s;
+}
+
+.review-horizontal-card:hover {
+  background: rgba(216, 27, 96, 0.1);
+}
+
+.review-horizontal-card img {
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.review-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.review-content h4 {
+  margin: 0;
+  color: white;
+}
+
+.review-content p {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+.review-horizontal-card {
+  display: flex;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  align-items: center;
+  border: 1px solid #333;
+}
+
+.review-horizontal-card img {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.review-content {
+  flex: 1;
+}
+/* Yorum Penceresi Arka Planı */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Arkayı karartır */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+/* Yorum Kutusu */
+.modal-content {
+  background: #121212;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  border: 2px solid var(--header-pink);
+  box-shadow: 0 0 30px rgba(216, 27, 96, 0.3);
+  text-align: center;
+}
+
+/* Puan Seçici */
+.rating-select {
+  background: #222;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  margin-left: 10px;
+}
