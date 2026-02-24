@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Profil() {
   const [favoriler, setFavoriler] = useState([]);
-  const [reviews, setReviews] = useState([]); // Yorumlar için state
-  const [activeTab, setActiveTab] = useState(''); 
+  const [reviews, setReviews] = useState([]);
+  const [activeTab, setActiveTab] = useState('film'); // Varsayılan olarak filmleri göster
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
   const username = localStorage.getItem('username');
@@ -28,7 +28,6 @@ function Profil() {
 
   const reviewGetir = async () => {
     try {
-      // Backend'de bu rotanın olduğundan emin ol
       const res = await axios.get(`http://localhost:5000/api/reviews/user/${userId}`);
       setReviews(res.data);
     } catch (err) {
@@ -49,14 +48,14 @@ function Profil() {
 
   const toggleSpotlight = async (fav) => {
     try {
-        await axios.put(`http://localhost:5000/api/favorites/spotlight/${fav.id}`, {
-            is_spotlight: !fav.is_spotlight,
-            user_id: userId,
-            media_type: fav.media_type
-        });
-        favoriGetir();
+      await axios.put(`http://localhost:5000/api/favorites/spotlight/${fav.id}`, {
+        is_spotlight: !fav.is_spotlight,
+        user_id: userId,
+        media_type: fav.media_type
+      });
+      favoriGetir();
     } catch (err) {
-        alert("Spotlight güncellenemedi.");
+      alert("Spotlight güncellenemedi.");
     }
   };
 
@@ -67,109 +66,124 @@ function Profil() {
     <div className="container">
       <button className="back-btn" onClick={() => navigate('/')}>← ANA SAYFA</button>
 
-      {/* --- SPOTLIGHT (ÖNE ÇIKANLAR) --- */}
-      {spotlightOlanlar.length > 0 && (
-        <div className="spotlight-section" style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            gap: '40px', 
-            margin: '40px 0',
-            padding: '20px',
-            background: 'rgba(0,0,0,0.2)',
-            borderRadius: '20px'
+      {/* --- PROFİL ÜST KART (Alex Rivera Tarzı) --- */}
+      <div className="profile-header-card">
+        <div className="profile-avatar" style={{ 
+          width: '120px', height: '120px', borderRadius: '50%', 
+          background: 'linear-gradient(45deg, var(--header-pink), #ad1457)',
+          display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem' 
         }}>
-            {spotlightOlanlar.map(spot => (
-                <div key={spot.id} style={{ textAlign: 'center' }}>
-                    <p style={{ color: 'var(--header-pink)', fontWeight: 'bold', marginBottom: '10px', fontSize: '0.8rem' }}>
-                        FAVORİ {spot.media_type === 'film' ? 'FİLMİM' : 'DİZİM'}
-                    </p>
-                    <img 
-                        src={`https://image.tmdb.org/t/p/w500${spot.poster_path}`} 
-                        alt={spot.title}
-                        style={{ 
-                            width: '180px', 
-                            borderRadius: '15px', 
-                            border: '4px solid var(--header-pink)', 
-                            boxShadow: '0 0 20px rgba(216, 27, 96, 0.5)',
-                            cursor: 'pointer'
-                        }}
-                        onClick={() => navigate(`/${spot.media_type}/${spot.media_id}`)}
-                    />
-                    <h3 style={{ fontSize: '1rem', marginTop: '10px', maxWidth: '180px', color: 'white' }}>{spot.title}</h3>
-                </div>
-            ))}
+          {username?.[0]?.toUpperCase()}
         </div>
-      )}
-      
-      <div className="section-container" style={{textAlign: 'center', marginTop: '20px'}}>
-        <h1 className="detay-baslik" style={{fontSize: '2.5rem'}}>{username?.toUpperCase()} KOLEKSİYONU</h1>
-        
-        {/* --- REVIEWS ÖZET BÖLÜMÜ --- */}
-        <div className="section-container" style={{ textAlign: 'left', marginTop: '40px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '2px solid #333', paddingBottom: '10px' }}>
-            <h2 className="section-title" style={{ margin: 0, border: 'none' }}>REVIEWS</h2>
-            <button className="back-btn" onClick={() => navigate('/all-reviews')} style={{ fontSize: '0.8rem', padding: '5px 15px' }}>
-              TÜMÜNÜ GÖR →
-            </button>
-          </div>
-
-          <div className="reviews-list">
-            {reviews.slice(0, 4).map(rev => (
-              <div key={rev.id} className="review-horizontal-card">
-                <img 
-                  src={`https://image.tmdb.org/t/p/w200${rev.poster_path}`} 
-                  alt={rev.media_title} 
-                  onClick={() => navigate(`/${rev.media_type}/${rev.media_id}`)}
-                />
-                <div className="review-content">
-                  <h4 style={{ color: 'white', margin: '0 0 5px 0' }}>{rev.media_title}</h4>
-                  <div className="rating" style={{ color: '#ffcc00', marginBottom: '5px' }}>
-                    {"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}
-                  </div>
-                  <p style={{ color: '#ccc', fontSize: '0.9rem', fontStyle: 'italic' }}>"{rev.comment}"</p>
-                </div>
-              </div>
-            ))}
-            {reviews.length === 0 && <p style={{ color: 'rgba(255,255,255,0.5)' }}>Henüz yorum yapılmamış.</p>}
-          </div>
+        <div style={{ flex: 1 }}>
+          <h1 style={{ margin: 0, fontSize: '2.5rem', fontWeight: '800' }}>{username?.toUpperCase()} KOLEKSİYONU</h1>
+          <p style={{ color: 'var(--text-dim)', marginTop: '5px' }}>Movie Enthusiast & Critic • Since 2026</p>
+          <div style={{ display: 'flex', gap: '40px', marginTop: '20px', alignItems: 'center' }}>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--header-pink)' }}>{favoriler.length}</div>
+    <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '1px' }}>MOVIES WATCHED</div>
+  </div>
+  
+  <div style={{ width: '1px', height: '30px', background: 'rgba(255,255,255,0.1)' }}></div>
+  
+  <div style={{ textAlign: 'center' }}>
+    <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--header-pink)' }}>{reviews.length}</div>
+    <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '1px' }}>REVIEWS</div>
+  </div>
+</div>
         </div>
+        <button className="btn-primary" onClick={() => alert("Profil düzenleme yakında!")}>Edit Profile</button>
+      </div>
 
-        {/* --- SEÇİM BUTONLARI --- */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', margin: '60px 0 40px 0' }}>
-          <div onClick={() => setActiveTab('film')} style={{ cursor: 'pointer', padding: '20px', border: `3px solid ${activeTab === 'film' ? '#d81b60' : 'white'}`, borderRadius: '20px', background: 'rgba(0,0,0,0.3)', transition: '0.3s', width: '200px' }}>
-            <span style={{fontSize: '3rem'}}>🎬</span>
-            <h3 style={{color: 'white', marginTop: '10px'}}>FAVORİ FİLMLERİM</h3>
-          </div>
-          <div onClick={() => setActiveTab('dizi')} style={{ cursor: 'pointer', padding: '20px', border: `3px solid ${activeTab === 'dizi' ? '#d81b60' : 'white'}`, borderRadius: '20px', background: 'rgba(0,0,0,0.3)', transition: '0.3s', width: '200px' }}>
-            <span style={{fontSize: '3rem'}}>📺</span>
-            <h3 style={{color: 'white', marginTop: '10px'}}>FAVORİ DİZİLERİM</h3>
-          </div>
-        </div>
-
-        {/* --- LİSTE ALANI --- */}
-        {activeTab && (
-          <div style={{marginTop: '50px'}}>
-            <h2 className="section-title" style={{ textAlign: 'left' }}>
-              {activeTab === 'film' ? "SİNEMA ARŞİVİM" : "DİZİ ARŞİVİM"}
-            </h2>
-            <div className="horizontal-scroll" style={{padding: '20px 0'}}>
-              {filtrelenmişFavoriler.map(fav => (
-                <div key={fav.id} className="movie-card scroll-item">
-                  <img src={`https://image.tmdb.org/t/p/w500${fav.poster_path}`} alt={fav.title} onClick={() => navigate(`/${fav.media_type}/${fav.media_id}`)} />
-                  <div className="movie-info">
-                    <h3 title={fav.title} style={{fontSize: '0.9rem'}}>{fav.title}</h3>
-                    <button onClick={() => toggleSpotlight(fav)} style={{ background: fav.is_spotlight ? '#d81b60' : 'transparent', border: '1px solid #d81b60', color: 'white', fontSize: '0.7rem', cursor: 'pointer', padding: '6px', width: '100%', marginTop: '8px', borderRadius: '5px', fontWeight: 'bold' }}>
-                      {fav.is_spotlight ? '★ ÖNE ÇIKARILDI' : '☆ ÖNE ÇIKAR'}
-                    </button>
-                    <button className="yorum-btn" style={{background: 'black', color: '#ff4444', fontSize: '0.7rem', width: '100%', marginTop: '5px', border: '1px solid #333'}} onClick={() => favoriSil(fav.id)}>
-                      LİSTEDEN KALDIR
-                    </button>
-                  </div>
-                </div>
-              ))}
+      {/* --- SPOTLIGHT BANNER (Yeni Büyük Görünüm) --- */}
+      {spotlightOlanlar.length > 0 && (
+        <div className="spotlight-banner">
+          <img 
+            src={`https://image.tmdb.org/t/p/original${spotlightOlanlar[0].poster_path}`} 
+            alt="spotlight"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.4' }}
+          />
+          <div className="spotlight-overlay">
+            <span style={{ color: 'var(--header-pink)', fontWeight: 'bold', letterSpacing: '2px', fontSize: '0.8rem' }}>TRENDING IN YOUR LIST</span>
+            <h2 style={{ fontSize: '3.5rem', margin: '10px 0', fontWeight: '900' }}>{spotlightOlanlar[0].title}</h2>
+            <div style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
+              <button className="btn-primary" onClick={() => navigate(`/${spotlightOlanlar[0].media_type}/${spotlightOlanlar[0].media_id}`)}>
+                DETAYLARA GİT
+              </button>
+              <button className="btn-primary" style={{ background: 'rgba(255,255,255,0.1)', boxShadow: 'none' }}>
+                + LİSTEYE EKLE
+              </button>
             </div>
           </div>
-        )}
+        </div>
+      )}
+
+      {/* --- REVIEWS GRID (Yorumlar) --- */}
+      <div className="section-container">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+          <h2 className="section-title">LATEST REVIEWS</h2>
+          <button className="back-btn" onClick={() => navigate('/all-reviews')} style={{fontSize: '0.8rem'}}>TÜMÜNÜ GÖR →</button>
+        </div>
+
+        <div className="reviews-grid">
+          {reviews.slice(0, 4).map(rev => (
+            <div key={rev.id} className="review-horizontal-card">
+              <img 
+                src={`https://image.tmdb.org/t/p/w200${rev.poster_path}`} 
+                alt={rev.media_title} 
+                onClick={() => navigate(`/${rev.media_type}/${rev.media_id}`)}
+              />
+              <div className="review-content">
+                <h4 style={{ fontSize: '1.2rem', marginBottom: '5px', color: 'white' }}>{rev.media_title}</h4>
+                <div className="rating" style={{ color: '#ffcc00', marginBottom: '10px' }}>
+                  {"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}
+                </div>
+                <p style={{ fontStyle: 'italic', color: 'var(--text-dim)', fontSize: '0.9rem' }}>"{rev.comment}"</p>
+              </div>
+            </div>
+          ))}
+          {reviews.length === 0 && <p className="glass-panel">Henüz yorum yapılmamış.</p>}
+        </div>
+      </div>
+
+      {/* --- SEÇİM VE ARŞİV --- */}
+      <div className="section-container" style={{marginTop: '60px'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '40px' }}>
+          <div className={`genre-item ${activeTab === 'film' ? 'active-genre' : ''}`} 
+               onClick={() => setActiveTab('film')}
+               style={{ border: activeTab === 'film' ? '1px solid var(--header-pink)' : '1px solid var(--glass-border)', width: '200px' }}>
+            <span style={{fontSize: '2rem'}}>🎬</span>
+            <h3>FİLMLER</h3>
+          </div>
+          <div className={`genre-item ${activeTab === 'dizi' ? 'active-genre' : ''}`} 
+               onClick={() => setActiveTab('dizi')}
+               style={{ border: activeTab === 'dizi' ? '1px solid var(--header-pink)' : '1px solid var(--glass-border)', width: '200px' }}>
+            <span style={{fontSize: '2rem'}}>📺</span>
+            <h3>DİZİLER</h3>
+          </div>
+        </div>
+
+        <h2 className="section-title">{activeTab === 'film' ? "SİNEMA ARŞİVİM" : "DİZİ ARŞİVİM"}</h2>
+        <div className="horizontal-scroll">
+          {filtrelenmişFavoriler.map(fav => (
+            <div key={fav.id} className="movie-card">
+              <img 
+                src={`https://image.tmdb.org/t/p/w500${fav.poster_path}`} 
+                alt={fav.title} 
+                onClick={() => navigate(`/${fav.media_type}/${fav.media_id}`)} 
+              />
+              <div className="movie-info">
+                <h3 title={fav.title}>{fav.title}</h3>
+                <button className="btn-primary" onClick={() => toggleSpotlight(fav)} style={{ fontSize: '0.6rem', padding: '5px', width: '100%', marginBottom: '5px' }}>
+                  {fav.is_spotlight ? '★ ÖNE ÇIKARILDI' : '☆ ÖNE ÇIKAR'}
+                </button>
+                <button className="back-btn" style={{ fontSize: '0.6rem', padding: '5px', width: '100%', color: '#ff4444' }} onClick={() => favoriSil(fav.id)}>
+                  LİSTEDEN KALDIR
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

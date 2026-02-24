@@ -64,20 +64,25 @@ app.post('/api/auth/login', async (req, res) => {
 
 // --- FAVORİLER VE SPOTLIGHT ---
 app.post('/api/favorites', async (req, res) => {
-  const { user_id, media_id, media_type, title, poster_path } = req.body;
-  if (!user_id || user_id === "undefined") {
-    return res.status(400).json({ error: "Kullanıcı ID bulunamadı." });
-  }
-  try {
-    await pool.query(
-      'INSERT INTO favorites (user_id, media_id, media_type, title, poster_path) VALUES ($1, $2, $3, $4, $5)',
-      [user_id, media_id, media_type, title, poster_path]
-    );
-    res.status(201).json({ message: "Favorilere eklendi!" });
-  } catch (err) {
-    if (err.code === '23505') res.status(400).json({ error: "Zaten listende!" });
-    else res.status(500).json({ error: err.message });
-  }
+    const { user_id, media_id, media_type, title, poster_path } = req.body;
+    
+    // Gelen ID'yi güvenli bir şekilde sayıya çevir
+    const numericUserId = parseInt(user_id);
+
+    if (isNaN(numericUserId)) {
+        return res.status(400).json({ error: "Geçersiz Kullanıcı ID" });
+    }
+
+    try {
+        await pool.query(
+            'INSERT INTO favorites (user_id, media_id, media_type, title, poster_path) VALUES ($1, $2, $3, $4, $5)',
+            [numericUserId, media_id, media_type, title, poster_path]
+        );
+        res.json({ message: "Başarıyla eklendi!" });
+    } catch (err) {
+        console.error("Favori ekleme hatası:", err.message);
+        res.status(500).json({ error: err.message });
+    }
 });
 
 app.get('/api/favorites/:user_id', async (req, res) => {

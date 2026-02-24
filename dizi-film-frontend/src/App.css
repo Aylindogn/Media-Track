@@ -1,331 +1,294 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Inter:wght@400;600;800&display=swap');
 
 :root {
-  --bg-green: #0b5b15;         /* Ana arka plan (Koyu Yeşil) */
-  --header-pink: #d81b60;      /* Başlıklar ve Vurgular (Neon Pembe) */
-  --card-dark: #121212;        /* Kartlar için siyah */
-  --text-white: #ffffff;
-  --neon-green: #00ff88;       /* Butonlar için parlak yeşil */
+  --bg-dark: #0f0f0f;           /* Obsidian Siyahı */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --header-pink: #d81b60;       /* Vurgu Rengi */
+  --accent-glow: rgba(216, 27, 96, 0.3);
+  --text-main: #ffffff;
+  --text-dim: #b3b3b3;
+  --card-dark: #1a1a1a;
 }
 
 body {
-  background-color: var(--bg-green);
-  color: white;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', 'Poppins', sans-serif;
   overflow-x: hidden;
+  /* Arka plana çok hafif bir derinlik katmak için radial gradient */
+  background: radial-gradient(circle at top right, #1a0b12, var(--bg-dark));
 }
 
-/* --- NAVBAR --- */
+/* --- NAVBAR (Glassmorphism) --- */
 .navbar {
-  background-color: var(--header-pink);
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(15px);
   padding: 1rem 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--glass-border);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
 .logo {
-  color: white;
-  font-size: 2rem;
-  font-weight: 900;
+  color: var(--text-main);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -1px;
   text-transform: uppercase;
-  cursor: pointer;
 }
 
 .search-input {
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: 2px solid white;
-  background-color: white;
-  width: 250px;
-  outline: none;
-}
-
-/* --- ANA SAYFA LAYOUT --- */
-.container {
-  padding: 40px 5%;
-}
-
-.section-container {
-  margin-bottom: 60px;
-}
-
-.section-title {
-  color: white;
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  border-left: 8px solid var(--header-pink);
-  padding-left: 15px;
-}
-
-/* --- SAĞA KAYDIRMA (SCROLL) --- */
-.horizontal-scroll {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  padding-bottom: 20px;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-}
-
-.horizontal-scroll::-webkit-scrollbar {
-  height: 8px;
-}
-
-.horizontal-scroll::-webkit-scrollbar-thumb {
-  background: var(--header-pink);
-  border-radius: 10px;
-}
-
-/* --- KART TASARIMI --- */
-.movie-card {
-  background-color: var(--card-dark);
-  border-radius: 15px;
-  padding: 10px;
-  transition: all 0.3s ease;
-  min-width: 180px;
-  max-width: 180px;
-  flex-shrink: 0;
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-
-.movie-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--header-pink);
-}
-
-.movie-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.movie-info h3 {
-  color: white;
-  font-size: 0.9rem;
-  margin: 10px 0 5px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.rating {
-  color: var(--neon-green);
-  font-weight: bold;
-  font-size: 0.8rem;
-}
-
-/* --- AUTH (GİRİŞ/KAYIT) SAYFALARI --- */
-.auth-container {
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.auth-form {
-  background: var(--card-dark);
-  padding: 40px;
-  border-radius: 25px;
-  border: 4px solid var(--header-pink);
-  width: 100%;
-  max-width: 380px;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-}
-
-.auth-form h2 {
-  color: var(--header-pink);
-  margin-bottom: 25px;
-  font-weight: 900;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
+  padding: 10px 25px;
   border-radius: 12px;
-  border: 2px solid var(--bg-green) !important;
-  background: #1a1a1a !important;
-  color: white !important;
-  box-sizing: border-box;
-  font-size: 1rem;
-}
-
-/* Otomatik doldurma (Autofill) Düzeltmesi */
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #1a1a1a inset !important;
-  -webkit-text-fill-color: white !important;
-}
-
-/* --- BUTONLAR --- */
-.yorum-btn {
-  background: var(--neon-green);
-  color: #000;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 900;
-  text-transform: uppercase;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: white;
+  width: 300px;
+  outline: none;
   transition: 0.3s;
 }
 
-.yorum-btn:hover {
-  background: white;
-  transform: scale(1.05);
+.search-input:focus {
+  border-color: var(--header-pink);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
-.back-btn {
-  background: var(--header-pink);
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* --- DETAY SAYFASI --- */
-.detay-sayfasi {
-  padding: 40px 5%;
-}
-
-.detay-header {
+/* --- PROFİL HEADER (Alex Rivera Tasarımı) --- */
+.profile-header-card {
+  background: rgba(255, 255, 255, 0.03) !important; /* Beyaz parlamayı tamamen siler */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 30px;
   display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.detay-header img {
-  width: 300px;
-  border-radius: 20px;
-  border: 4px solid var(--header-pink);
-}
-
-.detay-baslik {
-  color: white;
-  font-size: 3.5rem;
-  margin: 0;
-  line-height: 1.1;
-}
-
-.bolum-kart {
-  background: var(--card-dark);
-  margin-bottom: 15px;
-  padding: 20px;
-  border-radius: 15px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-left: 8px solid var(--header-pink);
+  gap: 40px;
+  /* Hafif bir derinlik için çok ince gölge */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
+
+/* --- SPOTLIGHT BANNER (Yeni Büyük Görünüm) --- */
+.spotlight-banner {
+  position: relative;
+  height: 500px;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  margin-bottom: 60px;
+}
+
+.spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 20%, transparent 80%),
+              linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px;
+}
+
+/* --- LATEST REVIEWS (Grid Yapısı) --- */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 25px;
+}
+
 .review-horizontal-card {
   display: flex;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  border: 1px solid rgba(216, 27, 96, 0.3);
+  background: var(--glass-bg);
+  padding: 20px;
+  border-radius: 20px;
+  align-items: flex-start;
+  border: 1px solid var(--glass-border);
   transition: 0.3s;
 }
 
 .review-horizontal-card:hover {
-  background: rgba(216, 27, 96, 0.1);
+  transform: translateY(-5px);
+  border-color: var(--header-pink);
+  background: rgba(216, 27, 96, 0.05);
 }
 
 .review-horizontal-card img {
-  width: 80px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.review-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.review-content h4 {
-  margin: 0;
-  color: white;
-}
-
-.review-content p {
-  color: #ccc;
-  font-size: 0.9rem;
-  margin: 10px 0;
-}
-.review-horizontal-card {
-  display: flex;
-  gap: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
+  width: 100px;
+  height: 150px;
   border-radius: 12px;
-  margin-bottom: 15px;
-  align-items: center;
-  border: 1px solid #333;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 
-.review-horizontal-card img {
-  width: 60px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 6px;
+/* --- BUTONLAR (Neon & Premium) --- */
+.yorum-btn, .btn-primary {
+  background: var(--header-pink);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  transition: 0.3s;
+  box-shadow: 0 5px 15px var(--accent-glow);
 }
 
-.review-content {
-  flex: 1;
+.yorum-btn:hover {
+  background: #ff2e7e;
+  box-shadow: 0 8px 25px var(--accent-glow);
+  transform: translateY(-2px);
 }
-/* Yorum Penceresi Arka Planı */
+
+.back-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: var(--header-pink);
+}
+
+/* --- KARTLAR (Genel Liste) --- */
+.movie-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 12px;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.movie-card:hover {
+  border-color: var(--header-pink);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85); /* Arkayı karartır */
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
+  z-index: 9999 !important; /* Diğer her şeyin üstünde olması için */
+  backdrop-filter: blur(10px);
 }
 
-/* Yorum Kutusu */
 .modal-content {
-  background: #121212;
-  padding: 30px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 500px;
-  border: 2px solid var(--header-pink);
-  box-shadow: 0 0 30px rgba(216, 27, 96, 0.3);
-  text-align: center;
+  background: #1a1a1a;
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8);
 }
 
-/* Puan Seçici */
-.rating-select {
-  background: #222;
-  color: white;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #444;
-  margin-left: 10px;
+/* --- BROWSE BY GENRE (Alt Kısım) --- */
+.genre-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Seçim butonlarını (Filmler/Diziler) küçült ve ortala */
+.genre-item {
+  min-width: 150px;
+  padding: 15px 30px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: 0.3s;
+}
+
+.genre-item:hover {
+  background: rgba(216, 27, 96, 0.1);
+  border-color: var(--header-pink);
+  transform: translateY(-3px);
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--header-pink);
+}
+/* Ana Sayfadaki Kaydırma Alanı */
+.horizontal-scroll {
+  display: flex !important; /* Kartları yan yana zorla */
+  overflow-x: auto;         /* Yatay kaydırmayı aç */
+  gap: 20px;                /* Kartlar arası boşluk */
+  padding: 20px 0;
+  scroll-behavior: smooth;
+  scrollbar-width: none;    /* Firefox için scrollbar gizle */
+}
+
+/* Chrome ve Safari için scrollbar gizle */
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+.movie-card {
+  min-width: 160px; /* 200px'den 160px'e düşürdük */
+  max-width: 160px;
+  background: var(--glass-bg);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  transition: 0.3s ease;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 240px; /* Kartlar küçüldüğü için yüksekliği de azalttık */
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.movie-info h3 {
+  font-size: 0.85rem; /* Yazıları da kartla orantılı küçülttük */
+  margin: 8px 0 4px 0;
+}
+.spotlight-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight-banner {
+  height: 400px; /* 500px'den 400px'e çektik */
+  margin-bottom: 40px;
+  border-radius: 20px;
+}
+
+.spotlight-overlay h1 {
+  font-size: 2.5rem !important; /* Başlık çok devasa olmasın */
+}
+.container {
+  max-width: 1200px; /* Sayfanın çok yayılmasını engeller */
+  margin: 0 auto;    /* Sayfayı ortalar */
+  padding: 40px 20px;
 }
