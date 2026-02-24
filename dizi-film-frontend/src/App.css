@@ -99,10 +99,10 @@ body {
 /* --- LATEST REVIEWS (Grid Yapısı) --- */
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Kartları otomatik sığdırır */
+  gap: 30px;
+  justify-items: center;
 }
-
 .review-horizontal-card {
   display: flex;
   gap: 20px;

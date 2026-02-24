@@ -142,17 +142,18 @@ function AnaSayfa() {
                 <MovieRow title="POPULAR SERIES" data={diziler} type="dizi" />
 
                 {/* --- BROWSE BY GENRE --- */}
-                <div className="section-container" style={{ marginTop: '40px' }}>
-                    <h2 className="section-title">BROWSE BY GENRE</h2>
-                    <div className="genre-container">
-                        <div className="genre-item">🚀 SCI-FI</div>
-                        <div className="genre-item">😂 COMEDY</div>
-                        <div className="genre-item">🎭 DRAMA</div>
-                        <div className="genre-item">💀 HORROR</div>
-                        <div className="genre-item">💗 ROMANCE</div>
-                        <div className="genre-item">⚔️ ACTION</div>
-                    </div>
-                </div>
+                {/* BROWSE BY GENRE Kısmı */}
+<div className="section-container" style={{ marginTop: '40px' }}>
+  <h2 className="section-title">BROWSE BY GENRE</h2>
+  <div className="genre-container">
+    <div className="genre-item" onClick={() => navigate('/genre/878/Sci-Fi')}>🚀 SCI-FI</div>
+    <div className="genre-item" onClick={() => navigate('/genre/35/Comedy')}>😂 COMEDY</div>
+    <div className="genre-item" onClick={() => navigate('/genre/18/Drama')}>🎭 DRAMA</div>
+    <div className="genre-item" onClick={() => navigate('/genre/27/Horror')}>💀 HORROR</div>
+    <div className="genre-item" onClick={() => navigate('/genre/10749/Romance')}>💗 ROMANCE</div>
+    <div className="genre-item" onClick={() => navigate('/genre/28/Action')}>⚔️ ACTION</div>
+  </div>
+</div>
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ import Login from './Login';
 import Register from './Register';
 import Profil from './Profil';
 import AllReviews from './AlllReviews';
-
+import GenrePage from './GenrePage'; // Dosya isminin doğru olduğundan emin ol
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/all-reviews" element={<AllReviews />} />
+          <Route path="/genre/:id/:name" element={<GenrePage />} />
         </Routes>
       </div>
     </Router>
