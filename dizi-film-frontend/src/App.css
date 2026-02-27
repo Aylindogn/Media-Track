@@ -292,3 +292,20 @@ body {
   margin: 0 auto;    /* Sayfayı ortalar */
   padding: 40px 20px;
 }
+/* Bölüm listesini dikey sütun haline getirir */
+.episode-list-container {
+  display: flex;
+  flex-direction: column; /* Yan yana değil, alt alta dizilmesini sağlar */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Her bir bölüm kartının genişliğini ve hizasını sabitler */
+.episode-list-container .review-horizontal-card {
+  width: 100%; /* Satırı tam kaplamasını sağlar */
+  max-width: none;
+  display: flex;
+  justify-content: space-between; /* Yazılar solda, buton sağda kalsın */
+  align-items: center;
+  padding: 15px 25px;
+}

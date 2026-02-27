@@ -8,6 +8,7 @@ import Register from './Register';
 import Profil from './Profil';
 import AllReviews from './AlllReviews';
 import GenrePage from './GenrePage'; // Dosya isminin doğru olduğundan emin ol
+import PopularPage from './PopularPage'; // En üste ekle
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profil" element={<Profil />} />
           <Route path="/all-reviews" element={<AllReviews />} />
           <Route path="/genre/:id/:name" element={<GenrePage />} />
+          <Route path="/popular/:type" element={<PopularPage />} />
         </Routes>
       </div>
     </Router>

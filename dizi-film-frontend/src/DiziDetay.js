@@ -144,7 +144,7 @@ function DiziDetay() {
 
           <div className="reviews-grid">
             {bolumler.map(b => (
-              <div key={b.id} className="review-horizontal-card" style={{alignItems: 'center'}}>
+              <div key={b.id} className="episode-list-container" style={{alignItems: 'center'}}>
                 <div style={{
                     width: '50px', height: '50px', borderRadius: '12px', background: 'var(--glass-bg)', 
                     display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold'

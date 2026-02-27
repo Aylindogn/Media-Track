@@ -55,28 +55,34 @@ function AnaSayfa() {
     };
 
     const MovieRow = ({ title, data, type }) => (
-        <div className="section-container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <h2 className="section-title" style={{ margin: 0 }}>{title}</h2>
-                <span style={{ color: 'var(--header-pink)', cursor: 'pointer', fontSize: '0.9rem' }}>View All →</span>
-            </div>
-            <div className="horizontal-scroll">
-                {data.map(item => (
-                    <div
-                        key={item.id}
-                        className="movie-card"
-                        onClick={() => navigate(`/${type || item.customType}/${item.id}`)}
-                    >
-                        <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title || item.name} />
-                        <div className="movie-info">
-                            <h3>{item.title || item.name}</h3>
-                            <span className="rating">★ {item.vote_average?.toFixed(1)}</span>
-                        </div>
-                    </div>
-                ))}
-            </div>
+    <div className="section-container">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 className="section-title" style={{ margin: 0 }}>{title}</h2>
+            {/* View All butonu artık navigate ile PopularPage'e yönlendiriyor */}
+            <span 
+                onClick={() => navigate(`/popular/${type}`)} 
+                style={{ color: 'var(--header-pink)', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 'bold' }}
+            >
+                View All →
+            </span>
         </div>
-    );
+        <div className="horizontal-scroll">
+            {data.map(item => (
+                <div
+                    key={item.id}
+                    className="movie-card"
+                    onClick={() => navigate(`/${type || item.customType}/${item.id}`)}
+                >
+                    <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title || item.name} />
+                    <div className="movie-info">
+                        <h3 title={item.title || item.name}>{item.title || item.name}</h3>
+                        <span className="rating">★ {item.vote_average?.toFixed(1)}</span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
 
     return (
         <div>
